@@ -1,8 +1,8 @@
 
 # Description
 
-This folder contains Terraform code for initial setup Terraform Cloud backed.
-Backend (Terraform State and DynamoDB) are deployed into AWS S3 bucket
+This folder contains Terraform code for Deployment Cloud Infrastructure for Application.
+All resources are deployed into AWS Cloud.
 
 # How to use
 
@@ -21,14 +21,7 @@ Backend (Terraform State and DynamoDB) are deployed into AWS S3 bucket
 >
 > terrafrom plan & terrafrom apply
 
-- after execution of Terrafrom copy Outputs for next step
-
-> dynamodb_table = "..."
->
-> kms_key = "..."
->
-> s3_bucket = "..."
-
 # TBD (out of scope of MVP)
 
 - cover Infrastructure with tests with 'terratest' <https://terratest.gruntwork.io/>
+- Improve security: ACLs between all subnets - keep open only needed ports.

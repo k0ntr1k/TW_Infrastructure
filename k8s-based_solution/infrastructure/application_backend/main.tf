@@ -1,4 +1,4 @@
-# 
+# Main Terraform file for provisioning Infrastructure for Application
 terraform {
   required_providers {
     aws = {
@@ -6,7 +6,10 @@ terraform {
       version = "3.73.0"
     }
   }
+
   # Terraform Backend in S3
+  # Backend should be create before.
+  # For more information go to "../terraform_backend" folder
   backend "s3" {
     bucket         = "tw-testinfrastructure-terraform-state"
     key            = "terraform-state/tw-app-terraform.tfstate"
@@ -17,11 +20,13 @@ terraform {
   }
 }
 
+# Defining Cloud provider and Region
 provider "aws" {
   region = "eu-central-1"
 }
 
 # Variables
+## Defining Tags
 variable "additional_tags" {
   default = {
     Environment    = "Test"
@@ -51,7 +56,7 @@ resource "aws_kms_alias" "tw-app-kmskey-alias" {
 }
 
 # NETWORK COMPONENTS
-# Create a VPC for Application
+## Create a VPC for Application
 resource "aws_vpc" "tw-app-vpc" {
   cidr_block = "10.0.0.0/16"
 
@@ -62,7 +67,7 @@ resource "aws_vpc" "tw-app-vpc" {
   )
 }
 
-# Creating a Internet Gateway
+## Creating a Internet Gateway
 resource "aws_internet_gateway" "tw-app-internet-gateway" {
   vpc_id = aws_vpc.tw-app-vpc.id
 
@@ -73,8 +78,8 @@ resource "aws_internet_gateway" "tw-app-internet-gateway" {
   )
 }
 
-# Create subnets for Application
-## Subnet for Infrastructure components
+## Create subnets for Application
+### Subnet for Infrastructure components
 resource "aws_subnet" "tw-app-subnet-infra" {
   vpc_id     = aws_vpc.tw-app-vpc.id
   cidr_block = "10.0.100.0/24"
@@ -86,7 +91,7 @@ resource "aws_subnet" "tw-app-subnet-infra" {
   )
 }
 
-## Subnet for Frontend components
+### Subnet for Frontend components
 resource "aws_subnet" "tw-app-subnet-frontend" {
   vpc_id     = aws_vpc.tw-app-vpc.id
   cidr_block = "10.0.10.0/24"
@@ -98,7 +103,7 @@ resource "aws_subnet" "tw-app-subnet-frontend" {
   )
 }
 
-## Subnet for Backend components
+### Subnet for Backend components
 resource "aws_subnet" "tw-app-subnet-backend" {
   vpc_id     = aws_vpc.tw-app-vpc.id
   cidr_block = "10.0.20.0/24"
@@ -110,7 +115,7 @@ resource "aws_subnet" "tw-app-subnet-backend" {
   )
 }
 
-# Create a PublicIP for Frontend
+## Create a PublicIP for Frontend
 resource "aws_eip" "tw-app-pip" {
   vpc  = true
 
@@ -121,7 +126,7 @@ resource "aws_eip" "tw-app-pip" {
   )
 }
 
-# Create a Load Balancer for Application
+## Create a Load Balancer for Application
 resource "aws_lb" "tw-app-lb" {
   name               = "App-LB"
   load_balancer_type = "network"
@@ -140,7 +145,7 @@ resource "aws_lb" "tw-app-lb" {
 
 
 # INFRASTRUCTURE COMPONENTS
-# Create a AWS ECR Repository for Application
+## Create a AWS ECR Repository for Application
 resource "aws_ecr_repository" "tw-app-ecr" {
   name                 = "App-ECR"
   image_tag_mutability = "MUTABLE"
