@@ -29,6 +29,9 @@ Backend (Terraform State and DynamoDB) are deployed into AWS S3 bucket
 >
 > s3_bucket = "..."
 
+Please copy these values into `../application_backend/main.tf` file in `backend "s3" {}` section
+
 # TBD (out of scope of MVP)
 
 - cover Infrastructure with tests with 'terratest' <https://terratest.gruntwork.io/>
+- reuse output values into next step of deploying 'application_backend'

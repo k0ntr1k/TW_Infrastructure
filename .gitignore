@@ -1,3 +1,6 @@
+*.jar
+**/application/*
+
 # Local .terraform directories
 **/.terraform/*
 

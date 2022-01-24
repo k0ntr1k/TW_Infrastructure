@@ -11,11 +11,17 @@ terraform {
   # Backend should be create before.
   # For more information go to "../terraform_backend" folder
   backend "s3" {
+    # paste here value from 'terraform_backend' output
+    ## s3_bucket:
     bucket         = "tw-testinfrastructure-terraform-state"
     key            = "terraform-state/tw-app-terraform.tfstate"
     region         = "eu-central-1"
     encrypt        = true
+    # paste here value from 'terraform_backend' output
+    ## kms_key:
     kms_key_id     = "alias/terraform-encryption-key"
+    # paste here value from 'terraform_backend' output
+    ## dynamodb_table
     dynamodb_table = "terraform-state"
   }
 }
@@ -117,7 +123,7 @@ resource "aws_subnet" "tw-app-subnet-backend" {
 
 ## Create a PublicIP for Frontend
 resource "aws_eip" "tw-app-pip" {
-  vpc  = true
+  vpc = true
 
   tags = merge(
     var.additional_tags, {
@@ -147,7 +153,7 @@ resource "aws_lb" "tw-app-lb" {
 # INFRASTRUCTURE COMPONENTS
 ## Create a AWS ECR Repository for Application
 resource "aws_ecr_repository" "tw-app-ecr" {
-  name                 = "App-ECR"
+  name                 = "tw-app-ecr"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
