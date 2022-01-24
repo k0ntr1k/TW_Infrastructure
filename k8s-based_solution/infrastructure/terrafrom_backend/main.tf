@@ -12,12 +12,29 @@ provider "aws" {
   region = "eu-central-1"
 }
 
+# Variables
+variable "additional_tags" {
+  default = {
+    Environment    = "Test"
+    DeploymentTool = "Terraform"
+    Component      = "Shared"
+  }
+  description = "Additional tags"
+  type        = map(string)
+}
+
 # KMS key for TF StateFile encryption
 resource "aws_kms_key" "terraform-encryption-key" {
   description             = "This key is used to encrypt TF state bucket objects"
   deletion_window_in_days = 10
   enable_key_rotation     = true
+
+  tags = merge(
+    var.additional_tags, {
+    },
+  )
 }
+
 # Alias for KMS key
 resource "aws_kms_alias" "key-alias" {
   name          = "alias/terraform-encryption-key"
@@ -43,6 +60,11 @@ resource "aws_s3_bucket" "terraform-state" {
       }
     }
   }
+
+  tags = merge(
+    var.additional_tags, {
+    },
+  )
 }
 
 # Defining ACL for the bucket
@@ -66,4 +88,9 @@ resource "aws_dynamodb_table" "terraform-state" {
     name = "LockID"
     type = "S"
   }
+
+  tags = merge(
+    var.additional_tags, {
+    },
+  )
 }
