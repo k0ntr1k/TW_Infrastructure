@@ -1,4 +1,4 @@
-# IaC for Deploying Customer services into Cloud
+# Deploying Application and App backend into Cloud. Based on Kubernetes
 
 # Tools:
 
