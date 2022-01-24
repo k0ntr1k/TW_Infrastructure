@@ -1,15 +1,10 @@
-# IaC for Deploying Customer services into Cloud
+# Deploying MVP Application into Cloud infrastructure
 
-# Tools:
+# INFRASTRUCTURE (Backend)
+There are 2 options for deploying MVP into Cloud:
+- kubernetes-based
+- VM-based
 
-## AWS as a cloud provider
+## Kubernetes-based Solution
 
-### AWS EKS - Kubernetes on AWS
-### AWS LB - Load Balancer
-### AWS ECR - Docker Registry
-
-## TERRAFORM for deploying infrastructure
-
-## HELM for deploying Services (from Docker containers)
-
-#
+## VirtualMachines - based Solution
