@@ -166,3 +166,8 @@ resource "aws_ecr_repository" "tw-app-ecr" {
     },
   )
 }
+
+## Create an EKS for run Application
+### Create IAM role for EKS
+
+### Create EKS

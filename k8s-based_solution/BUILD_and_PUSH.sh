@@ -19,28 +19,32 @@ echo Build Docker images with Application components
 mv ./build/front-end.jar ../k8s-based_solution/app_images/front-end_service/
 mv ./build/newsfeed.jar ../k8s-based_solution/app_images/newsfeed_service/
 mv ./build/quotes.jar ../k8s-based_solution/app_images/quotes_service/
-
-break
-
+mv ./public/* ../k8s-based_solution/app_images/static_assets/
+cd ..
+rm -rf application
 echo Autenticate in ECR
 # Authenticate in Private ECR registry
 # URL of ECR need to be replaces from Terrafrom output
-aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 776120585128.dkr.ecr.eu-central-1.amazonaws.com
+# aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 776120585128.dkr.ecr.eu-central-1.amazonaws.com
 
 # Building Docker image for FrontendService
 echo Build 'frontend' Image
 cd ../k8s-based_solution/app_images/front-end_service/
-docker build -t app-frontend .
+docker build -t frontend-service .
 
 # Building Docker image for newsfeedService
 echo Build 'newsfeed' Image
 cd ../k8s-based_solution/app_images/newsfeed_service/
-docker build .
+docker build -t newsfeed-service .
 
 # Building Docker image for quotesService
 echo Build 'quotes' Image
 cd ../k8s-based_solution/app_images/quotes_service/
-docker build .
+docker build -t quotes-service .
+
+echo Build 'static assests' Image
+cd ../k8s-based_solution/app_images/static_assests/
+docker build -t static-assets-service .
 
 echo -------------------------------------------------------
 echo Building Images DONE! 
