@@ -53,9 +53,9 @@ docker build -t quotes-service .
 rm *.jar
 
 echo Build 'static assests' Image
-cd ../static_assests/
+cd ../static_assets/
 docker build -t static-assets-service .
-rm -rf 
+rm -rf public
 
 echo -------------------------------------------------------
 echo Building Images DONE! 
