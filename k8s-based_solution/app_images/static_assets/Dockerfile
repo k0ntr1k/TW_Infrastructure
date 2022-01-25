@@ -2,7 +2,7 @@ FROM python
 
 WORKDIR /app
 
-ADD css css
+ADD /css /css
 ADD serve.py serve.py
 
 EXPOSE 8000

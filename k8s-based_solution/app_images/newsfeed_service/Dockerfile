@@ -4,6 +4,6 @@ WORKDIR /app
 
 ADD newsfeed.jar newsfeed.jar
 
-EXPOSE 8080:8082
+EXPOSE 8080
 
 CMD java -jar newsfeed.jar
