@@ -2,6 +2,7 @@
 # Prerequisites for Build App
 brew install leiningen
 brew install openjdk
+brew install helm
 
 # Download Application from GitHub
 # URL: https://github.com/ThoughtWorksInc/infra-problem/archive/refs/heads/master.zip 
@@ -21,43 +22,61 @@ make clean all
 echo -------------------------------------------------------
 echo Build Docker images with Application components
 # Copy JAR files into app_images directory
-cp ./build/front-end.jar ../k8s-based_solution/app_images/front-end_service/
-cp ./build/newsfeed.jar ../k8s-based_solution/app_images/newsfeed_service/
-cp ./build/quotes.jar ../k8s-based_solution/app_images/quotes_service/
-cp -R ./front-end/public ../k8s-based_solution/app_images/static_assets/
+cp ./build/front-end.jar ../k8s-based_solution/app_images/frontend-service/
+cp ./build/newsfeed.jar ../k8s-based_solution/app_images/newsfeed-service/
+cp ./build/quotes.jar ../k8s-based_solution/app_images/quotes-service/
+cp -R ./front-end/public ../k8s-based_solution/app_images/static-service/
 cd ..
 rm -rf application
 
 echo Autenticate in ECR
 # Authenticate in Private ECR registry
 # URL of ECR need to be replaces from Terrafrom output
-# aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 776120585128.dkr.ecr.eu-central-1.amazonaws.com
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 776120585128.dkr.ecr.eu-central-1.amazonaws.com
 
 # Building Docker image for FrontendService
 cd k8s-based_solution/app_images/
-echo Build 'frontend' Image
-cd front-end_service/
+echo Build 'frontend-service' Image
+cd frontend-service/
 docker build -t frontend-service .
+echo Tag 'frontend-service' image
+docker tag frontend-service:latest 776120585128.dkr.ecr.eu-central-1.amazonaws.com/frontend-service:latest
+echo Push 'frontend-service' image to ECR
+docker push 776120585128.dkr.ecr.eu-central-1.amazonaws.com/frontend-service:latest
 rm *.jar
 
 # Building Docker image for newsfeedService
-echo Build 'newsfeed' Image
-cd ../newsfeed_service/
+echo Build 'newsfeed-service' Image
+cd ../newsfeed-service/
 docker build -t newsfeed-service .
+echo Tag 'newsfeed-service' image
+docker tag newsfeed-service:latest 776120585128.dkr.ecr.eu-central-1.amazonaws.com/newsfeed-service:latest
+echo Push 'newsfeed-service' image to ECR
+docker push 776120585128.dkr.ecr.eu-central-1.amazonaws.com/newsfeed-service:latest
 rm *.jar
 
 # Building Docker image for quotesService
-echo Build 'quotes' Image
-cd ../quotes_service/
+echo Build 'quotes-service' Image
+cd ../quotes-service/
 docker build -t quotes-service .
+echo Tag 'quotes-service' image
+docker tag quotes-service:latest 776120585128.dkr.ecr.eu-central-1.amazonaws.com/quotes-service:latest
+echo Push 'quotes-service' image to ECR
+docker push 776120585128.dkr.ecr.eu-central-1.amazonaws.com/quotes-service:latest
 rm *.jar
 
-echo Build 'static assests' Image
-cd ../static_assets/
-docker build -t static-assets-service .
+echo Build 'static-service' Image
+cd ../static-service/
+docker build -t static-service .
+echo Tag 'static-service' image
+docker tag static-service:latest 776120585128.dkr.ecr.eu-central-1.amazonaws.com/static-service:latest
+echo Push 'static-service' image to ECR
+docker push 776120585128.dkr.ecr.eu-central-1.amazonaws.com/static-service:latest
 rm -rf public
 
 echo -------------------------------------------------------
-echo Building Images DONE! 
+echo Building Images DONE!
+echo -------------------------------------------------------
 echo Enjoy with HELM
+
 echo -------------------------------------------------------
