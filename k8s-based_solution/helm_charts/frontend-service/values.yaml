@@ -6,9 +6,11 @@ image:
   pullPolicy: IfNotPresent
   tag: "latest"
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+imagePullSecrets:
+  - name: tw-app-ecr-registry-secret
+
+nameOverride: "frontend-service"
+fullnameOverride: "frontend-service"
 
 serviceAccount:
   create: true
@@ -26,11 +28,11 @@ service:
   port: 8080
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations: {}
   hosts:
-    - host: chart-example.local
+    - host: frontend.local
       paths:
         - path: /
           pathType: ImplementationSpecific

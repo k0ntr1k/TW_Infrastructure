@@ -2,15 +2,15 @@
 replicaCount: 1
 
 image:
-#  repository: 776120585128.dkr.ecr.eu-central-1.amazonaws.com/static-service
-  repository: static-service:latest
-#  pullPolicy: IfNotPresent
-  pullPolicy: Never
+  repository: 776120585128.dkr.ecr.eu-central-1.amazonaws.com/static-service
+  pullPolicy: IfNotPresent
   tag: "latest"
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+imagePullSecrets:
+  - name: tw-app-ecr-registry-secret
+
+nameOverride: "static-service"
+fullnameOverride: "static-service"
 
 serviceAccount:
   create: true
@@ -32,9 +32,9 @@ ingress:
   className: ""
   annotations: {}
   hosts:
-    - host: chart-example.local
+    - host: localhost
       paths:
-        - path: /
+        - path: /ping
           pathType: ImplementationSpecific
   tls: []
 
