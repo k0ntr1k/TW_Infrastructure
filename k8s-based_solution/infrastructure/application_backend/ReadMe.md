@@ -24,4 +24,4 @@ All resources are deployed into AWS Cloud.
 # TBD (out of scope of MVP)
 
 - cover Infrastructure with tests with 'terratest' <https://terratest.gruntwork.io/>
-- Improve security: ACLs between all subnets - keep open only needed ports.
+- Improve security

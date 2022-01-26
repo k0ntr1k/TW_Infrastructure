@@ -3,6 +3,8 @@
 brew install leiningen
 brew install openjdk
 brew install helm
+brew install docker
+brew install awscli
 
 # Download Application from GitHub
 # URL: https://github.com/ThoughtWorksInc/infra-problem/archive/refs/heads/master.zip 
@@ -78,5 +80,7 @@ echo -------------------------------------------------------
 echo Building Images DONE!
 echo -------------------------------------------------------
 echo Enjoy with HELM
+# Authenticate into EKS Cluster
+aws eks update-kubeconfig --region eu-central-1 --name tw-eks-test-cluster
 
 echo -------------------------------------------------------
