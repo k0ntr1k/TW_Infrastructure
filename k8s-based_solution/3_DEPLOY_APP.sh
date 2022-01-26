@@ -20,6 +20,7 @@ echo -------------------------------------------------------
 echo Autenticate ECR in EKS Cluster
 TOKEN=`aws ecr --region=${REGION} get-authorization-token --output text --query authorizationData[].authorizationToken | base64 -d | cut -d: -f2`
 
+kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
 kubectl delete secret --ignore-not-found ${SECRET_NAME}
 kubectl create secret docker-registry ${SECRET_NAME} \
  --namespace=${NAMESPACE} \

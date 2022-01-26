@@ -38,6 +38,16 @@ ingress:
           pathType: ImplementationSpecific
   tls: []
 
+env:
+  - name: STATIC_URL
+    value: "http://static-service:8000"
+  - name: QUOTE_SERVICE_URL
+    value: "http://quotes-service:8080"
+  - name: NEWSFEED_SERVICE_URL
+    value: "http://newsfeed-service:8080"
+  - name: NEWSFEED_SERVICE_TOKEN
+    value: "T1&eWbYXNWG1w1^YGKDPxAWJ@^et^&kX"
+
 resources:
   limits:
     cpu: 500m
