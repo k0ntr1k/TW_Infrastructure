@@ -30,12 +30,14 @@ service:
 ingress:
   enabled: true
   className: ""
-  annotations: {}
+  annotations:
+    kubernetes.io/ingress.class: nginx-external
   hosts:
-    - host: frontend.local
+    - host: localhost # needs to be a valid hostname. 
       paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
+
   tls: []
 
 env:

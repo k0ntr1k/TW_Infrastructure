@@ -79,9 +79,5 @@ docker push ${ECR_URL}/static-service:latest
 rm -rf public
 
 echo -------------------------------------------------------
-echo Building Images DONE!
-echo -------------------------------------------------------
-echo Enjoy with HELM and K8S!
-cd ../../
-./3_DEPLOY_APP.sh
+echo Building and Pushing Images to AWS ECR DONE!
 echo -------------------------------------------------------

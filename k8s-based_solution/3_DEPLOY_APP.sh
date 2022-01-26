@@ -35,8 +35,9 @@ cd helm_charts
 for service in 'static-service' 'quotes-service' 'newsfeed-service' 'frontend-service'; do
   echo Deploy $service
   helm upgrade --install --create-namespace -n ${NAMESPACE} $service $service/ --values $service/values.yaml
+  echo Service $service deployed
+  echo -------------------------------------------------------
 done
 
-echo -------------------------------------------------------
 echo Enjoy with next steps!
 echo -------------------------------------------------------
