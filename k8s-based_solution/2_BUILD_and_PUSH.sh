@@ -7,6 +7,7 @@ brew install awscli
 
 # Define variables
 ECR_URL=776120585128.dkr.ecr.eu-central-1.amazonaws.com # URL of ECR need to be replaces from Terrafrom output
+DOCKER_BUILD_OPT='--no-cache --squash'
 
 # Download Application from GitHub
 # URL: https://github.com/ThoughtWorksInc/infra-problem/archive/refs/heads/master.zip 
@@ -41,7 +42,7 @@ aws ecr get-login-password --region eu-central-1 | docker login --username AWS -
 cd k8s-based_solution/app_images/
 echo Build 'frontend-service' Image
 cd frontend-service/
-docker build -t frontend-service .
+docker build ${DOCKER_BUILD_OPT} -t frontend-service . 
 echo Tag 'frontend-service' image
 docker tag frontend-service:latest ${ECR_URL}/frontend-service:latest
 echo Push 'frontend-service' image to ECR
@@ -51,7 +52,7 @@ rm *.jar
 # Building Docker image for newsfeedService
 echo Build 'newsfeed-service' Image
 cd ../newsfeed-service/
-docker build -t newsfeed-service .
+docker build ${DOCKER_BUILD_OPT} -t newsfeed-service .
 echo Tag 'newsfeed-service' image
 docker tag newsfeed-service:latest ${ECR_URL}/newsfeed-service:latest
 echo Push 'newsfeed-service' image to ECR
@@ -61,7 +62,7 @@ rm *.jar
 # Building Docker image for quotesService
 echo Build 'quotes-service' Image
 cd ../quotes-service/
-docker build -t quotes-service .
+docker build ${DOCKER_BUILD_OPT} -t quotes-service .
 echo Tag 'quotes-service' image
 docker tag quotes-service:latest ${ECR_URL}/quotes-service:latest
 echo Push 'quotes-service' image to ECR
@@ -70,7 +71,7 @@ rm *.jar
 
 echo Build 'static-service' Image
 cd ../static-service/
-docker build -t static-service .
+docker build ${DOCKER_BUILD_OPT} -t static-service .
 echo Tag 'static-service' image
 docker tag static-service:latest ${ECR_URL}/static-service:latest
 echo Push 'static-service' image to ECR
