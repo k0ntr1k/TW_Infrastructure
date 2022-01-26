@@ -5,15 +5,16 @@ brew install awscli
 brew install kubectl
 
 # Define variables
-ECR_URL=776120585128.dkr.ecr.eu-central-1.amazonaws.com # URL of ECR need to be replaces from Terrafrom output
+ECR_URL= # URL of ECR need to be replaces from Terrafrom output
 REGION=eu-central-1 # AWS region of deployment need to be replaces from Terrafrom output
-SECRET_NAME=tw-app-ecr-registry-secret
+EKS_CLUSTER_NAME= # EKS cluster name need to be replaces from Terrafrom output
+SECRET_NAME=app-ecr-registry-secret
 NAMESPACE=test-app
 
 # Authenticate into EKS Cluster
 echo -------------------------------------------------------
 echo Authenticate into EKS Cluster
-# aws eks update-kubeconfig --region ${REGION} --name tw-eks-test-cluster
+aws eks update-kubeconfig --region ${REGION} --name ${EKS_CLUSTER_NAME}
 
 # Autenticate ECR in EKS Cluster
 echo -------------------------------------------------------

@@ -3,7 +3,7 @@ replicaCount: 1
 
 image:
   repository: 776120585128.dkr.ecr.eu-central-1.amazonaws.com/static-service
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 imagePullSecrets:
@@ -29,14 +29,6 @@ service:
 
 ingress:
   enabled: false
-  className: ""
-  annotations: {}
-  hosts:
-    - host: localhost
-      paths:
-        - path: /ping
-          pathType: ImplementationSpecific
-  tls: []
 
 resources:
   limits:

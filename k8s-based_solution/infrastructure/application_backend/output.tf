@@ -13,3 +13,6 @@ output "quotes-service_repoURL" {
 output "static-service_repoURL" {
   value = aws_ecr_repository.static-service.repository_url
 }
+output "clusterURL"{
+  value = module.eks.cluster_arn
+}

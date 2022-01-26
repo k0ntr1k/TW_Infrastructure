@@ -3,7 +3,7 @@ replicaCount: 1
 
 image:
   repository: 776120585128.dkr.ecr.eu-central-1.amazonaws.com/quotes-service
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 imagePullSecrets:
