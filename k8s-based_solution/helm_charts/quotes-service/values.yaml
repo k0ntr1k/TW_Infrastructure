@@ -1,0 +1,49 @@
+---
+replicaCount: 1
+
+image:
+  repository: 776120585128.dkr.ecr.eu-central-1.amazonaws.com/quotes-service
+  pullPolicy: Always
+  tag: "latest"
+
+imagePullSecrets:
+  - name: tw-app-ecr-registry-secret
+
+nameOverride: "quotes-service"
+fullnameOverride: "quotes-service"
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: "quotes-service-sa"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+...

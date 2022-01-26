@@ -1,0 +1,9 @@
+apiVersion: v2
+name: newsfeed-service
+description: A Helm chart for Deploying Newsfeed service into AWS EKS
+
+type: application
+
+version: 0.1.0
+
+appVersion: "0.1.0"

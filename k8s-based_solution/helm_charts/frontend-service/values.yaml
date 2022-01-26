@@ -1,0 +1,67 @@
+---
+replicaCount: 1
+
+image:
+  repository: 776120585128.dkr.ecr.eu-central-1.amazonaws.com/frontend-service
+  pullPolicy: Always
+  tag: "latest"
+
+imagePullSecrets:
+  - name: tw-app-ecr-registry-secret
+
+nameOverride: "frontend-service"
+fullnameOverride: "frontend-service"
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: "frontend-service-sa"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    kubernetes.io/ingress.class: nginx-external
+  hosts:
+    paths:
+      - path: /
+        pathType: Prefix
+  tls: []
+
+env:
+  - name: STATIC_URL
+    value: "http://static-service:8000"
+  - name: QUOTE_SERVICE_URL
+    value: "http://quotes-service:8080"
+  - name: NEWSFEED_SERVICE_URL
+    value: "http://newsfeed-service:8080"
+  - name: NEWSFEED_SERVICE_TOKEN
+    value: "T1&eWbYXNWG1w1^YGKDPxAWJ@^et^&kX"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+...
